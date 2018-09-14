@@ -9,3 +9,6 @@ Debug
 Release
 .metadata
 omega.exe
+*~
+.idea
+.DS_Store
