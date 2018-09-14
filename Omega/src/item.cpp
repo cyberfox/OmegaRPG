@@ -2,6 +2,7 @@
 /* item.c */
 
 #include "glob.h"
+#include "Food.h"
 
 /* make a random new object, returning pointer */
 Object* create_object(int itemlevel)
@@ -55,7 +56,7 @@ void make_food(Object* newObject, int id)
 }
 
 
-void make_corpse(Object* newObject, Monster* m)
+Object *make_corpse(Object* newObject, Monster* m)
 {
     *newObject = Objects[CORPSEID];
     newObject->charge = m->id;
@@ -84,8 +85,10 @@ void make_corpse(Object* newObject, Monster* m)
     else
 #endif
         if (m_statusp(m,EDIBLE)) {
-            newObject->usef = I_FOOD;
-            newObject->aux = 6;
+            Food *newFood = new Food(newObject);
+            newFood->aux = 6;
+            free(newObject);
+            newObject = newFood;
         }
         else if (m_statusp(m,POISONOUS))
             newObject->usef = I_POISON_FOOD;
@@ -141,6 +144,7 @@ void make_corpse(Object* newObject, Monster* m)
                 break;
 #endif
             }
+    return newObject;
 }
 
 

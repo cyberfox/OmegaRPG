@@ -439,8 +439,7 @@ void Monster::m_death()
         if (this == Arena_Monster)
             Arena_Victory = true;	/* won this round of arena combat */
         if (random_range(2) || (this->uniqueness != COMMON)) {
-            corpse=((Object*) checkmalloc(sizeof(Object)));
-            make_corpse(corpse,this);
+            corpse = make_corpse(((Object*) checkmalloc(sizeof(Object))), this);
             drop_at(this->x,this->y,corpse);
         }
         plotspot(this->x,this->y,false);

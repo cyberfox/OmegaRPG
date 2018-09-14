@@ -441,7 +441,7 @@ void make_artifact( Object*, int );
 void make_boots( Object*, int );
 void make_cash( Object*, int );
 void make_cloak( Object*, int );
-void make_corpse( Object*, Monster * );
+Object *make_corpse( Object*, Monster * );
 void make_food( Object*, int );
 void make_potion( Object*, int );
 void make_ring( Object*, int );
