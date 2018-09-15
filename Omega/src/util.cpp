@@ -910,17 +910,12 @@ void free_obj( Object* obj, int flag )
 {
     if ( flag && (obj->id == CORPSEID) && (obj->level & ALLOC) )
         free( (char *)obj->objstr );
-    if(obj->id == FOODID+0) {
-        delete obj;
-    } else {
-        free( (char *) obj );
-    }
+    delete obj;
 }
 
 Object* copy_obj ( Object* obj )
 {
-    Object* newObject;
-    newObject = ((Object*) checkmalloc(sizeof(Object)));
+    Object* newObject = ((Object*) checkmalloc(sizeof(Object)));
     *newObject = *obj;
     if ( (obj->id == CORPSEID) && (obj->level & ALLOC) )
     {
@@ -978,7 +973,12 @@ void free_level(plv level)
 /* some memory... */
 void *checkmalloc(unsigned int bytes)
 {
-    void *ptr = malloc(bytes);
+    void *ptr;
+    if(bytes == sizeof(Object)) {
+        ptr = new (std::nothrow) Object();
+    } else {
+        ptr = malloc(bytes);
+    }
     struct level *curr, **prev, **oldest;
 
     if (ptr)

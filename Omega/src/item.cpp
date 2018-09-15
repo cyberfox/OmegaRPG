@@ -86,6 +86,7 @@ Object *make_corpse(Object* newObject, Monster* m)
 #endif
         if (m_statusp(m,EDIBLE)) {
             Food *newFood = new Food(newObject);
+            newFood->id = newObject->id;
             newFood->aux = 6;
             free(newObject);
             newObject = newFood;

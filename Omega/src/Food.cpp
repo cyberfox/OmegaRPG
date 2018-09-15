@@ -1,7 +1,7 @@
 #include "glob.h"
 #include "Food.h"
 
-Food::Food(void)
+Food::Food()
 {
 	weight = 20;
 	plus = charge = dmg = hit = fragility = blessing = 0;
@@ -60,7 +60,7 @@ void Food::use()
     }
 }
 
-Food::Food(Object *o) {
+Food::Food(Object *o) : Food() {
     initialize();
 
     weight = o->weight;
