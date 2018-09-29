@@ -54,7 +54,7 @@ void buyfromstock(int base, int numitems)
     }
     else {
         i = item - 'a';
-        newitem = ((Object*) checkmalloc(sizeof(Object)));
+        newitem = new Object();
         *newitem = Objects[base+i];
         newitem->known = 2;
         clearmsg();

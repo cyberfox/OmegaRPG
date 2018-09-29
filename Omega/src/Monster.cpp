@@ -439,7 +439,7 @@ void Monster::m_death()
         if (this == Arena_Monster)
             Arena_Victory = true;	/* won this round of arena combat */
         if (random_range(2) || (this->uniqueness != COMMON)) {
-            corpse=((Object*) checkmalloc(sizeof(Object)));
+            corpse=new Object();
             make_corpse(corpse,this);
             drop_at(this->x,this->y,corpse);
         }
@@ -1348,7 +1348,7 @@ void Monster::m_altar()
 void Monster::strengthen_death()
 {
     pol ol = ((pol)checkmalloc(sizeof(oltype)));
-    Object* scythe = ((Object*)checkmalloc(sizeof(Object)));
+    Object* scythe = new Object();
 
     xpv += min(10000,xpv+1000);
     hit += min(1000,hit+10);

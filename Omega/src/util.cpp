@@ -910,17 +910,12 @@ void free_obj( Object* obj, int flag )
 {
     if ( flag && (obj->id == CORPSEID) && (obj->level & ALLOC) )
         free( (char *)obj->objstr );
-    if(obj->id == FOODID+0) {
-        delete obj;
-    } else {
-        free( (char *) obj );
-    }
+    delete obj;
 }
 
 Object* copy_obj ( Object* obj )
 {
-    Object* newObject;
-    newObject = ((Object*) checkmalloc(sizeof(Object)));
+    auto * newObject = new Object();
     *newObject = *obj;
     if ( (obj->id == CORPSEID) && (obj->level & ALLOC) )
     {

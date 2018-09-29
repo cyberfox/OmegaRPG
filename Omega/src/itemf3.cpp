@@ -460,13 +460,13 @@ void i_orbearth(Object* o)
         else {
             print3("Your possessions disintegrate!");
             for (i=0; i<MAXITEMS; i++)
-                if (Player.possessions[i] != NULL)
+                if (Player.possessions[i] != nullptr)
                     dispose_lost_objects(Player.possessions[i]->number,
                                          Player.possessions[i]);
             for (i=0; i<MAXPACK; i++)
-                if (Player.pack[i] != NULL) {
-                    free((char *) Player.pack[i]);
-                    Player.pack[i] = NULL;
+                if (Player.pack[i] != nullptr) {
+                    delete Player.pack[i];
+                    Player.pack[i] = nullptr;
                 }
             Player.packptr = 0;
             o->known = 1;

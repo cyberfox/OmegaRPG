@@ -10,14 +10,12 @@ static void inv_display_refresh(void);
 /* drops money, heh heh */
 void drop_money(void)
 {
-    Object* money;
-
-    money = detach_money(0);
-    if (money != NULL) {
+    Object* money = detach_money(0);
+    if (money != nullptr) {
         if (Current_Environment == E_CITY) {
             print1("As soon as the money leaves your hand,");
             print2("a horde of scrofulous beggars snatch it up and are gone!");
-            free( money );
+            delete money;
         }
         else drop_at(Player.x,Player.y,money);
     }
@@ -31,14 +29,14 @@ Object* detach_money(long howmuch)
 /* if howmuch == 0, ask the player. otherwise, just get howmuch. */
 {
     long c;
-    Object* cash=NULL;
+    Object* cash = nullptr;
     if ( howmuch == 0 )
         c = get_money(Player.cash);
     else
         c = howmuch;
     if (c != ABORT) {
         Player.cash -= c;
-        cash = ((Object*) checkmalloc(sizeof(Object)));
+        cash = new Object();
         make_cash(cash,difficulty());
         cash->basevalue = c;
     }
@@ -75,7 +73,7 @@ void pickup_at (int x, int y)
     ol = Level->site[x][y].things;
     Level->site[x][y].things = 0;
 
-    while (ol != 0)
+    while (ol != nullptr)
     {
         clearmsg1();
         response = cinema_ynq(strjoin("Pick up? [ynq]: ", itemid(ol->thing)));
@@ -89,17 +87,17 @@ void pickup_at (int x, int y)
 
         temp = ol;
         ol = ol->next;
-        temp->next = 0;
-        temp->thing = 0;
+        temp->next = nullptr;
+        temp->thing = nullptr;
         free(temp);
     }
 
-    while (ol != 0)
+    while (ol != nullptr)
     {
         temp = ol;
         ol = ol->next;
-        temp->next = 0;
-        temp->thing = 0;
+        temp->next = nullptr;
+        temp->thing = nullptr;
         free(temp);
     }
 }

@@ -660,7 +660,7 @@ Object* restore_item(FILE *fd, int version)
 
     fread((char *)&type,sizeof(type),1,fd);
     if (type != 0xff) {
-        obj = ((Object*) checkmalloc(sizeof(Object)));
+        obj = new Object();
         fread((char *)obj,sizeof(Object),1,fd);
 
         /* DAG -- added object 215 (bag of holding) in 9001;  have to renumber */
@@ -703,7 +703,7 @@ Object* restore_item(FILE *fd, int version)
         if(obj->id == FOODID+0) {
             Object *old = obj;
             obj = new LyzzardBucket(obj);
-            free(old);
+            delete old;
         }
     }
     return obj;
@@ -711,13 +711,13 @@ Object* restore_item(FILE *fd, int version)
 
 pol restore_itemlist(FILE *fd, int version)
 {
-    pol ol=NULL,cur=NULL,newObject=NULL;
+    pol ol= nullptr,cur= nullptr,newObject= nullptr;
     int i,numitems,firsttime=true;
     fread((char *)&numitems,sizeof(int),1,fd);
     for(i=0; i<numitems; i++) {
         newObject = ((pol) checkmalloc(sizeof(oltype)));
         newObject->thing = restore_item(fd, version);
-        newObject->next = NULL;
+        newObject->next = nullptr;
         if (firsttime > 0) {
             ol = cur = newObject;
             firsttime = false;

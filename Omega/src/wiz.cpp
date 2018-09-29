@@ -106,7 +106,7 @@ void acquire(int blessing)
         }
     }
     else {
-        newthing = ((Object*) checkmalloc(sizeof(Object)));
+        newthing = new Object();
         /* DAG this assignment looks unneccessary */
         newthing->id = -1;
         if (State.getCheater())
@@ -227,7 +227,7 @@ void acquire(int blessing)
         {
             /* DAG newthing allocated but was not freed... was YA memory leak */
             /* use free() rather than free_obj() since newthing not initialized */
-            free( (char *) newthing );
+            delete newthing;
         }
     }
 }

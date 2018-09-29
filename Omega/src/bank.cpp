@@ -130,7 +130,7 @@ Object* bank_create_card (int account_number, int type)
 
     assert(OB_DEBIT_CARD == type || OB_SMART_CARD == type);
 
-    card = (Object*) checkmalloc(sizeof(Object));
+    card = new Object();
     *card = Objects[type];
     card->aux = account_number;
 

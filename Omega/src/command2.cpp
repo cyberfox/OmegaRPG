@@ -309,7 +309,7 @@ void disarm(void)
                     Player.dex*2+Player.level*3+Player.rank[THIEVES]*10) {
                 print1("You disarmed the trap!");
                 if (random_range(100) < Player.dex+Player.rank[THIEVES]*10) {
-                    o = ((Object*) checkmalloc(sizeof(Object)));
+                    o = new Object();
                     switch(Level->site[x][y].p_locf) {
                     case L_TRAP_DART:
                         *o=Objects[OB_TRAP_DART];
@@ -340,11 +340,11 @@ void disarm(void)
                         break;
                     default:
                         /* DAG can't use free_obj() as object not initialized */
-                        free(o);
-                        o = NULL;
+                        delete o;
+                        o = nullptr;
                         break;
                     }
-                    if (o != NULL) {
+                    if (o != nullptr) {
                         print2("You manage to retrieve the trap components!");
                         morewait();
                         Objects[o->id].known = 1;
